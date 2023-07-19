@@ -15,7 +15,6 @@ fn read_csv(filename: &str) -> Option<Vec<Vec<String>>>{
       if let Some(character) = &text.chars().next(){
         if *character == '"' {
           let mut rows: Vec<&str> = text.split('\n').collect();
-          rows.pop();
           for (row_index, row) in rows.iter().enumerate(){
             result.push(vec![]);
             let mut chars = row.chars();
@@ -28,7 +27,6 @@ fn read_csv(filename: &str) -> Option<Vec<Vec<String>>>{
           }
         }else{
           let mut rows: Vec<&str> = text.split('\n').collect();
-          rows.pop();
           for (row_index, row) in rows.iter().enumerate(){
             result.push(vec![]);
             for element in row.split(';'){
