@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>csViewer</title>
+	</head>
+	<body>
+		<label>insert the path of the file you want to read:</label>
+		<br />
+		<input id="file" type="text" />
+		<button id="confirm" onclick="openFile()">Confirm</button>
+		<br />
+		<br />
+		<br />
+		<div id="csv-table"></div>
+		<script>
+			const { invoke } = window.__TAURI__.tauri;
+
+			async function openFile() {
+				const file = document.querySelector('#file').value;
+				const csv = await invoke('read_csv', { filename: file });
+				console.log(csv);
+				let HTMLTable = '<table><tbody>';
+				console.log(HTMLTable);
+				for (row of csv) {
+					HTMLTable += '<tr>';
+					for (element of row) {
+						HTMLTable += '<td>' + element + '</td>';
+					}
+					HTMLTable += '</tr>';
+				}
+				HTMLTable += '</tbody></table>';
+				console.log(HTMLTable);
+				document.querySelector('#csv-table').innerHTML = HTMLTable;
+			}
+		</script>
+	</body>
+</html>
