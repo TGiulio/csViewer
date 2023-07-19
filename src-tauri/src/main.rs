@@ -16,7 +16,6 @@ fn read_csv(filename: &str) -> Option<Vec<Vec<String>>>{
         if *character == '"' {
           let mut rows: Vec<&str> = text.split('\n').collect();
           rows.pop();
-          println!("{:?}", rows);
           for (row_index, row) in rows.iter().enumerate(){
             result.push(vec![]);
             let mut chars = row.chars();
