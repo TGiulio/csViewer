@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" type="text/css" href="style.css" />
 		<title>csViewer</title>
 	</head>
 	<body>
@@ -20,9 +21,8 @@
 			async function openFile() {
 				const file = document.querySelector('#file').value;
 				const csv = await invoke('read_csv', { filename: file });
-				console.log(csv);
+				csv.pop();
 				let HTMLTable = '<table><tbody>';
-				console.log(HTMLTable);
 				for (row of csv) {
 					HTMLTable += '<tr>';
 					for (element of row) {
@@ -31,7 +31,6 @@
 					HTMLTable += '</tr>';
 				}
 				HTMLTable += '</tbody></table>';
-				console.log(HTMLTable);
 				document.querySelector('#csv-table').innerHTML = HTMLTable;
 			}
 		</script>
