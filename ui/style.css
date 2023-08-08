@@ -39,7 +39,7 @@ table {
 	overflow: hidden;
 	max-width: 800px;
 	width: 100%;
-	margin: 0 auto;
+	margin: 0 1vh;
 	position: relative;
 }
 
@@ -50,5 +50,5 @@ td {
 	border-style: solid;
 	border-width: 1px;
 	border-color: rgb(167, 167, 167);
-	padding: 2vw;
+	padding: 1vh;
 }
