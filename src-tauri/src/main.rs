@@ -8,7 +8,7 @@ use std::fs;
 fn read_csv(filename: &str) -> Option<Vec<Vec<String>>>{
   match fs::read_to_string(filename){
     Err(e) => {
-      Some(vec![vec![String::from("cannot open the file")],vec![String::from(format!("{}", e))]])
+      Some(vec![vec![String::from("cannot open the file")],vec![format!("{}", e)]])
     },
     Ok(text) => {
       let mut result = vec![vec![]];
