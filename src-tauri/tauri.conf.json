@@ -58,7 +58,7 @@
 				"fullscreen": false,
 				"height": 768,
 				"resizable": true,
-				"title": "scViewer",
+				"title": "csViewer",
 				"width": 1024
 			}
 		]
