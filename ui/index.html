@@ -21,10 +21,9 @@
 			async function openFile() {
 				const file = document.querySelector('#file').value;
 				const csv = await invoke('read_csv', { filename: file });
-				csv.pop();
 				let HTMLTable = '<table><tbody>';
-				for (row of csv) {
-					HTMLTable += '<tr>';
+				for ([index, row] of csv.entries()) {
+					HTMLTable += '<tr><td>' + index + '</td>';
 					for (element of row) {
 						HTMLTable += '<td>' + element + '</td>';
 					}
