@@ -7,14 +7,14 @@ use std::fs;
 #[tauri::command]
 fn read_csv(filename: &str) -> Option<Vec<Vec<String>>>{
   match fs::read_to_string(filename){
-    Err(_e) => {
-      Some(vec![vec![String::from("cannot open the file")]])
+    Err(e) => {
+      Some(vec![vec![String::from("cannot open the file")],vec![String::from(format!("{}", e))]])
     },
     Ok(text) => {
       let mut result = vec![vec![]];
       if let Some(character) = &text.chars().next(){
         if *character == '"' {
-          let mut rows: Vec<&str> = text.split('\n').collect();
+          let rows: Vec<&str> = text.split('\n').collect();
           for (row_index, row) in rows.iter().enumerate(){
             result.push(vec![]);
             let mut chars = row.chars();
@@ -22,16 +22,27 @@ fn read_csv(filename: &str) -> Option<Vec<Vec<String>>>{
             chars.next_back();
             let row = chars.as_str();
             for element in row.split(r#"";""#){
-              result[row_index].push(element.to_owned());
+              if !element.is_empty(){
+                result[row_index].push(element.to_owned());
+              }
             }
           }
         }else{
-          let mut rows: Vec<&str> = text.split('\n').collect();
+          let rows: Vec<&str> = text.split('\n').collect();
           for (row_index, row) in rows.iter().enumerate(){
             result.push(vec![]);
             for element in row.split(';'){
-              result[row_index].push(element.to_owned());
+              if !element.is_empty() {
+                result[row_index].push(element.to_owned());
+              }
             }
+          }
+        }
+        while let Some(vec) = result.last(){
+          if vec.is_empty(){
+            result.pop();
+          }else{
+            break;
           }
         }
         Some(result)
